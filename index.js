@@ -12,7 +12,11 @@ app.use(cors());
 
 const server = http.createServer(app);
 const io = new Server(server);
-mongoose.connect("mongodb://localhost/aichat",{ useNewUrlParser: true,useUnifiedTopology: true  });
+
+mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true  })
+.then(()=>console.log('connected'))
+.catch(e=>console.log(e))
+// mongoose.connect("mongodb://localhost/aichat",{ useNewUrlParser: true,useUnifiedTopology: true  });
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(require('./routes/index'));
