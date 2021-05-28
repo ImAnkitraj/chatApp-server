@@ -5,8 +5,9 @@ const User = require('../models/User')
 var FuzzySearch = require('fuzzy-search')
 
 module.exports.GET_USER = (req,res) => {
-    const id = req.params.id;
-    User.findById(id, (err, user)=>{
+    const id = req.params.id.toString();
+    console.log('user', id)
+    User.find({_id:id}, (err, user)=>{
         if(err){
             res.send({
                 status:false,
@@ -47,7 +48,6 @@ module.exports.ADD_FRIEND = (req, res) => {
         });
         room.save();
 
-
         let error = false;
         User.findOne({_id:userId})
         .then((user)=>{
@@ -58,10 +58,13 @@ module.exports.ADD_FRIEND = (req, res) => {
             error=true;
         })
 
+        let updatedUser;
         User.findOne({_id:friendId})
         .then((user)=>{
+            user = user
             user.friends = [...user.friends,{roomId: room._id, friendId: userId}];
             user.save();
+            updatedUser = user;
         })
         .catch((err)=>{
             error=true
@@ -76,7 +79,7 @@ module.exports.ADD_FRIEND = (req, res) => {
         else{
             res.send({
                 status:true,
-                room:room
+                room:room,
             })
         }
     }

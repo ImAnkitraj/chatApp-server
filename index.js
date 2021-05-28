@@ -9,11 +9,7 @@ const bodyparser = require('body-parser');
 const { addMessage } = require('./functions');
 const app = express();
 app.use(cors());
-app.use(function(req, res, next){
-    res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept")
-next();
-})
+
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(require('./routes/index'));
@@ -25,14 +21,16 @@ const io = socketio(server,{
     }
 });
 
-// server.use(cors());
 
-mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true  })
+// mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true  })
+// .then(()=>console.log('connected'))
+// .catch(e=>console.log(e))
+
+mongoose.connect("mongodb://localhost/aichat",{ useNewUrlParser: true,useUnifiedTopology: true  })
 .then(()=>console.log('connected'))
 .catch(e=>console.log(e))
-// mongoose.connect("mongodb://localhost/aichat",{ useNewUrlParser: true,useUnifiedTopology: true  });
 
-
+console.log('env',process.env.NODE_ENV)
 io.on('connection', (socket) => {
     socket.on('join',({roomId}, callback)=>{
         socket.join(roomId);
