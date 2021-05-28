@@ -22,13 +22,13 @@ const io = socketio(server,{
 });
 
 
-// mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true  })
-// .then(()=>console.log('connected'))
-// .catch(e=>console.log(e))
-
-mongoose.connect("mongodb://localhost/aichat",{ useNewUrlParser: true,useUnifiedTopology: true  })
+mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true  })
 .then(()=>console.log('connected'))
 .catch(e=>console.log(e))
+
+// mongoose.connect("mongodb://localhost/aichat",{ useNewUrlParser: true,useUnifiedTopology: true  })
+// .then(()=>console.log('connected'))
+// .catch(e=>console.log(e))
 
 console.log('env',process.env.NODE_ENV)
 io.on('connection', (socket) => {
