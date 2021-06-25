@@ -29,8 +29,11 @@ mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?r
 // mongoose.connect("mongodb://localhost/aichat",{ useNewUrlParser: true,useUnifiedTopology: true  })
 // .then(()=>console.log('connected'))
 // .catch(e=>console.log(e))
+// mongoose.connect("mongodb://localhost:27017/aichat?readPreference=primary&appname=MongoDB%20Compass&ssl=false",{ useNewUrlParser: true,useUnifiedTopology: true  })
+// .then(()=>console.log('connected'))
+// .catch(e=>console.log(e))
 
-console.log('env',process.env.NODE_ENV)
+// console.log('env',process.env.NODE_ENV)
 io.on('connection', (socket) => {
     socket.on('join',({roomId}, callback)=>{
         socket.join(roomId);
