@@ -5,7 +5,6 @@ const socketio = require('socket.io');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const bodyparser = require('body-parser');
-// const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 const { addMessage } = require('./functions');
 const app = express();
 app.use(cors());
@@ -21,8 +20,7 @@ const io = socketio(server,{
     }
 });
 
-
-mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true  })
+mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true,useUnifiedTopology: true  })
 .then(()=>console.log('connected'))
 .catch(e=>console.log(e))
 
@@ -33,7 +31,6 @@ mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/aichat?r
 // .then(()=>console.log('connected'))
 // .catch(e=>console.log(e))
 
-// console.log('env',process.env.NODE_ENV)
 io.on('connection', (socket) => {
     socket.on('join',({roomId}, callback)=>{
         socket.join(roomId);
